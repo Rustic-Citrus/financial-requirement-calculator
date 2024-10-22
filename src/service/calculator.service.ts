@@ -6,6 +6,8 @@ export class Calculator {
   }
 
   calculateSavings(annualIncome: number) {
-    return 16000 + 2.5 * (this.incomeThreshold - annualIncome);
+    return annualIncome >= this.incomeThreshold ?
+      0 :
+      16000 + 2.5 * (this.incomeThreshold - annualIncome);
   }
 }
