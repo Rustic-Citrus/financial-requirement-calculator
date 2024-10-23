@@ -1,5 +1,6 @@
-import { describe, it } from "jsr:@std/testing/bdd";
+import { beforeEach, describe, it } from "jsr:@std/testing/bdd";
 import { expect } from "jsr:@std/expect";
+import { assertThrows } from "jsr:@std/assert";
 import { Calculator } from "../../src/service/calculator.service.ts";
 import { CURRENT_INCOME_THRESHOLD } from "../../src/constants.ts";
 
@@ -9,8 +10,10 @@ describe("Calculator Service Tests", () => {
   describe("calculateSavings method", () => {
     // Setup
 
-    // Instantiate the Calculator class with the current income threshold.
-    testCalculator = new Calculator(CURRENT_INCOME_THRESHOLD);
+    beforeEach(() => {
+      // Instantiate the Calculator class with the current income threshold.
+      testCalculator = new Calculator(CURRENT_INCOME_THRESHOLD);
+    });
 
     it("returns the expected value for the required savings, given a valid income threshold and a valid number representing an annual income", () => {
       // Assemble
@@ -62,11 +65,24 @@ describe("Calculator Service Tests", () => {
       }
 
       // Assert
-
       // Check each calculated savings value matches the predefined savings values.
-      expect(actualSavings[0]).toBe(expectedSavings);
-      expect(actualSavings[1]).toBe(expectedSavings);
-      expect(actualSavings[2]).toBe(expectedSavings);
+      actualSavings.forEach((savings) => {
+        expect(savings).toBe(expectedSavings);
+      });
+    });
+
+    it("throws an error if the income parameter is a number less than 0", () => {
+      // Assemble
+      // Set three randomly chosen values for incomes less than £0.
+      const testAnnualIncomes: number[] = [-13657, -78254, -35101];
+
+      // Act & Assert
+      // Check that each income value causes an error to be thrown.
+      testAnnualIncomes.forEach((income) => {
+        assertThrows(() => {
+          testCalculator.calculateSavings(income);
+        });
+      });
     });
   });
 });
