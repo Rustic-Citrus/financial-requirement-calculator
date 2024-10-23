@@ -84,5 +84,20 @@ describe("Calculator Service Tests", () => {
         });
       });
     });
+
+    it("throws an error if the income parameter is not a number", () => {
+      // Assemble
+      // Set three values that are not numbers.
+      const testAnnualIncomes = ["Hello, World!", [1, 2, 3], true];
+
+      // Act & Assert
+      // @ts-ignore For all testAnnualIncome values... 
+      testAnnualIncomes.forEach((income) => {
+        assertThrows(() => {
+          // @ts-ignore ...Check that each income value causes an exception to be thrown. 
+          testCalculator.calculateSavings(income);
+        });
+      });
+    });
   });
 });
