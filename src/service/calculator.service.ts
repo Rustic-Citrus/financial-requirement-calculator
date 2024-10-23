@@ -1,8 +1,12 @@
 export class Calculator {
   private incomeThreshold: number;
+  private minYears: number = 2.5;
+  private savingsThreshold: number;
 
-  constructor(incomeThreshold: number) {
+  constructor(incomeThreshold: number, savingsThreshold: number, minYears: number) {
     this.incomeThreshold = incomeThreshold;
+    this.savingsThreshold = savingsThreshold;
+    this.minYears = minYears;
   }
 
   calculateSavings(annualIncome: number) {
@@ -18,6 +22,14 @@ export class Calculator {
 
     return annualIncome >= this.incomeThreshold
       ? 0
-      : 16000 + 2.5 * (this.incomeThreshold - annualIncome);
+      : this.savingsThreshold +
+          this.minYears * (this.incomeThreshold - annualIncome);
+  }
+
+  calculateIncome(savings: number) {
+    return (
+      (savings - this.savingsThreshold - this.minYears * this.incomeThreshold) /
+      -this.minYears
+    );
   }
 }
