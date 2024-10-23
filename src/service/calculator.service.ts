@@ -27,6 +27,11 @@ export class Calculator {
   }
 
   calculateIncome(savings: number) {
+    // Throw an exception if annualIncome is less than £0.
+    if (savings < this.savingsThreshold) {
+      throw new Error("savings < savingsThreshold");
+    }
+
     return (
       (savings - this.savingsThreshold - this.minYears * this.incomeThreshold) /
       -this.minYears

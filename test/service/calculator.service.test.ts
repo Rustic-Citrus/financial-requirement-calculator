@@ -1,4 +1,4 @@
-import { beforeEach, describe, it } from "jsr:@std/testing/bdd";
+import { beforeEach, describe, it, test } from "jsr:@std/testing/bdd";
 import { expect } from "jsr:@std/expect";
 import { assertThrows } from "jsr:@std/assert";
 import { Calculator } from "../../src/service/calculator.service.ts";
@@ -130,6 +130,20 @@ describe("Calculator Service Tests", () => {
       // Check whether the actual values match the expected values.
       actualAnnualIncomes.forEach((income, index) => {
         expect(income).toEqual(expectedAnnualIncomes[index]);
+      });
+    });
+
+    it("throws an exception if the argument for currentSavings is less than the savings threshold", () => {
+      // Assemble
+      // Set three random values for savings between -£16,000 and £15,999.
+      const testSavings: number[] = [-11454, 10690, 0];
+
+      // Act & Assert
+      // Check whether the actual values match the expected values.
+      testSavings.forEach((income) => {
+        assertThrows(() => {
+          testCalculator.calculateIncome(income);
+        });
       });
     });
   });
