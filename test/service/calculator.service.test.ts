@@ -146,5 +146,20 @@ describe("Calculator Service Tests", () => {
         });
       });
     });
+
+    it("throws an exception if the argument for currentSavings is not a number", () => {
+      // Assemble
+      // Set three values that are not numbers.
+      const testSavings = ["Hello, World!", [1, 2, 3], true];
+
+      // Act & Assert
+      // @ts-ignore For all testSavings values...
+      testSavings.forEach((savings) => {
+        assertThrows(() => {
+          // @ts-ignore ...Check that each savings value causes an exception to be thrown.
+          testCalculator.calculateIncome(savings);
+        });
+      });
+    });
   });
 });
