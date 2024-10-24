@@ -1,11 +1,9 @@
 src/controller
 src/router
 src/server
-src/service/validator*
 
 test/controller
 test/router
 test/server
-test/service/validator*
 
 deno.lock
