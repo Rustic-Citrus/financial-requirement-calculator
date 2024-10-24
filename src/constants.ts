@@ -6,3 +6,6 @@ export const CURRENT_SAVINGS_THRESHOLD: number = 16000;
 
 // As of April 2024, the minimum number of years required to sustain the applicant is 2.5, when used as a multiple for the weight of the savings towards meeting the financial requirement.
 export const CURRENT_MIN_YEARS: number = 2.5;
+
+// Regular expression matching only British pounds strings formatted to 2 decimal places with thousands separators as commas.
+export const GBP_REGEX: RegExp = /^£\d{1,3}(,\d{3})*(\.\d{2})?$/;
