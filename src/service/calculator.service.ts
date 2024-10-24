@@ -10,11 +10,6 @@ export class Calculator {
   }
 
   calculateSavings(annualIncome: number) {
-    // Throw an exception if annualIncome is not a number.
-    if (typeof annualIncome !== "number") {
-      throw new Error('typeof annualIncome !== "number"');
-    }
-    
     return annualIncome >= this.incomeThreshold
       ? 0
       : this.savingsThreshold +
@@ -22,11 +17,6 @@ export class Calculator {
   }
 
   calculateIncome(savings: number) {
-    // Throw an exception if savings is not a number.
-    if (typeof savings !== "number") {
-      throw new Error('typeof savings !== "number"');
-    }
-
     // Throw an exception if savings are lower than threshold.
     if (savings < this.savingsThreshold) {
       throw new Error("savings < savingsThreshold");

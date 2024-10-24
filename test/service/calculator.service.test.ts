@@ -1,6 +1,5 @@
 import { beforeEach, describe, it } from "jsr:@std/testing/bdd";
 import { expect } from "jsr:@std/expect";
-import { assertThrows } from "jsr:@std/assert";
 import { Calculator } from "../../src/service/calculator.service.ts";
 import {
   CURRENT_INCOME_THRESHOLD,
@@ -77,21 +76,6 @@ describe("Calculator Service tests", () => {
         expect(savings).toBe(expectedSavings);
       });
     });
-
-    it("throws an error if the income parameter is not a number", () => {
-      // Assemble
-      // Set three values that are not numbers.
-      const testAnnualIncomes = ["Hello, World!", [1, 2, 3], true];
-
-      // Act & Assert
-      // @ts-ignore For all testAnnualIncome values...
-      testAnnualIncomes.forEach((income) => {
-        assertThrows(() => {
-          // @ts-ignore ...Check that each income value causes an exception to be thrown.
-          testCalculator.calculateSavings(income);
-        });
-      });
-    });
   });
 
   describe("calculateIncome method", () => {
@@ -119,7 +103,7 @@ describe("Calculator Service tests", () => {
       });
     });
 
-    it("throws an exception if the argument for currentSavings is less than the savings threshold", () => {
+    it("throws an exception if the value for savings is less than the savings threshold", () => {
       // Assemble
       // Set three random values for savings between -£16,000 and £15,999.
       const testSavings: number[] = [-11454, 10690, 0];
@@ -127,24 +111,9 @@ describe("Calculator Service tests", () => {
       // Act & Assert
       // Check whether the actual values match the expected values.
       testSavings.forEach((income) => {
-        assertThrows(() => {
+        expect(() => {
           testCalculator.calculateIncome(income);
-        });
-      });
-    });
-
-    it("throws an exception if the argument for currentSavings is not a number", () => {
-      // Assemble
-      // Set three values that are not numbers.
-      const testSavings = ["Hello, World!", [1, 2, 3], true];
-
-      // Act & Assert
-      // @ts-ignore For all testSavings values...
-      testSavings.forEach((savings) => {
-        assertThrows(() => {
-          // @ts-ignore ...Check that each savings value causes an exception to be thrown.
-          testCalculator.calculateIncome(savings);
-        });
+        }).toThrow();
       });
     });
   });
