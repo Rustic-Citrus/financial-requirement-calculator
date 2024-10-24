@@ -14,12 +14,7 @@ export class Calculator {
     if (typeof annualIncome !== "number") {
       throw new Error('typeof annualIncome !== "number"');
     }
-
-    // Throw an exception if annualIncome is less than £0.
-    if (annualIncome < 0) {
-      throw new Error("annualIncome < 0");
-    }
-
+    
     return annualIncome >= this.incomeThreshold
       ? 0
       : this.savingsThreshold +
@@ -32,7 +27,7 @@ export class Calculator {
       throw new Error('typeof savings !== "number"');
     }
 
-    // Throw an exception if annualIncome is less than £0.
+    // Throw an exception if savings are lower than threshold.
     if (savings < this.savingsThreshold) {
       throw new Error("savings < savingsThreshold");
     }

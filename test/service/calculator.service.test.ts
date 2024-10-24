@@ -78,20 +78,6 @@ describe("Calculator Service tests", () => {
       });
     });
 
-    it("throws an error if the income parameter is a number less than 0", () => {
-      // Assemble
-      // Set three randomly chosen values for incomes less than £0.
-      const testAnnualIncomes: number[] = [-13657, -78254, -35101];
-
-      // Act & Assert
-      // Check that each income value causes an error to be thrown.
-      testAnnualIncomes.forEach((income) => {
-        assertThrows(() => {
-          testCalculator.calculateSavings(income);
-        });
-      });
-    });
-
     it("throws an error if the income parameter is not a number", () => {
       // Assemble
       // Set three values that are not numbers.
