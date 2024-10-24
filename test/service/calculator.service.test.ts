@@ -1,4 +1,4 @@
-import { beforeEach, describe, it, test } from "jsr:@std/testing/bdd";
+import { beforeEach, describe, it } from "jsr:@std/testing/bdd";
 import { expect } from "jsr:@std/expect";
 import { assertThrows } from "jsr:@std/assert";
 import { Calculator } from "../../src/service/calculator.service.ts";
@@ -8,7 +8,7 @@ import {
   CURRENT_SAVINGS_THRESHOLD,
 } from "../../src/constants.ts";
 
-describe("Calculator Service Tests", () => {
+describe("Calculator Service tests", () => {
   // Setup
   let testCalculator: Calculator;
 
