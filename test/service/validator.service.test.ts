@@ -91,4 +91,31 @@ describe("Validator Service tests", () => {
       }).not.toThrow();
     });
   });
+
+  describe("hasSavingsField tests", () => {
+    it('throws an exception if the object does not have a "savings" field', () => {
+      // Arrange
+      const testObject = {
+        name: "Freddy Mercury",
+        email: "freddy@queen.org",
+      };
+
+      // Act & Assert
+      expect(() => {
+        Validator.hasSavingsField(testObject);
+      }).toThrow();
+    });
+
+    it('does not throw an exception if the object has a "savings" field', () => {
+      // Arrange
+      const testObject = {
+        savings: "65000"
+      };
+
+      // Act & Assert
+      expect(() => {
+        Validator.hasSavingsField(testObject);
+      }).not.toThrow();
+    });
+  });
 });

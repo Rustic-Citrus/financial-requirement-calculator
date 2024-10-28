@@ -19,4 +19,11 @@ export class Validator {
       throw new Error('!Object.hasOwn(someObject, "income")');
     }
   }
+
+  static hasSavingsField(someObject: object) {
+    // Throw an exception if the object does not have a savings field.
+    if (!Object.hasOwn(someObject, "savings")) {
+      throw new Error('!Object.hasOwn(someObject, "savings")');
+    }    
+  }
 }
