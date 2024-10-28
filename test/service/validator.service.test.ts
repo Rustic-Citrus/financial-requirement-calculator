@@ -64,4 +64,31 @@ describe("Validator Service tests", () => {
       });
     });
   });
+
+  describe("hasIncomeField tests", () => {
+    it('throws an exception if the object does not have an "income" field', () => {
+      // Arrange
+      const testObject = {
+        name: "Bob Dylan",
+        email: "bobdylan@random.org",
+      };
+
+      // Act & Assert
+      expect(() => {
+        Validator.hasIncomeField(testObject);
+      }).toThrow();
+    });
+
+    it('does not throw an exception if the object has an "income" field', () => {
+      // Arrange
+      const testObject = {
+        income: "25000"
+      };
+
+      // Act & Assert
+      expect(() => {
+        Validator.hasIncomeField(testObject);
+      }).not.toThrow();
+    });
+  });
 });

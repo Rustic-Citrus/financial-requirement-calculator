@@ -12,4 +12,11 @@ export class Validator {
       throw new Error('typeof value !== "number"');
     }
   }
+
+  static hasIncomeField(someObject: object) {
+    // Throw an exception if the object does not have an income field.
+    if (!Object.hasOwn(someObject, "income")) {
+      throw new Error('!Object.hasOwn(someObject, "income")');
+    }
+  }
 }
