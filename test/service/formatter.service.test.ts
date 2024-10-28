@@ -22,7 +22,6 @@ describe("Formatter Service tests", () => {
       // Assert
       // Iterate through actual strings and check whether they have a pound symbol and are to two decimal places.
       actualStrings.forEach((output) => {
-        console.log(output);
         expect(output).toMatch(GBP_REGEX);
       });
     });
