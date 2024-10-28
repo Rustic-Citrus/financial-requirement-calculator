@@ -3,6 +3,9 @@ import { expect } from "jsr:@std/expect";
 import { Validator } from "../../src/service/validator.service.ts";
 
 describe("Validator Service tests", () => {
+  let testUrl: URL;
+  let testUrlSearchParams: URLSearchParams;
+
   describe("isPositiveNum tests", () => {
     it("throws an error if the received value is a number less than 0", () => {
       // Assemble
@@ -65,56 +68,70 @@ describe("Validator Service tests", () => {
     });
   });
 
-  describe("hasIncomeField tests", () => {
-    it('throws an exception if the object does not have an "income" field', () => {
+  describe("hasIncomeParam tests", () => {
+    it('throws an exception if the URLSearchParams does not have an income parameter', () => {
       // Arrange
-      const testObject = {
-        name: "Bob Dylan",
-        email: "bobdylan@random.org",
-      };
+      // Instantiate a new URL object from a semi-random URL string query.
+      testUrl = new URL(
+        "https://localhost:4000/?name=Bob+Dylan&email=bobdylan@random.org"
+      );
+
+      // Instantiate URLSearchParams from mockUrl.
+      testUrlSearchParams = new URLSearchParams(testUrl.search);
 
       // Act & Assert
       expect(() => {
-        Validator.hasIncomeField(testObject);
+        Validator.hasIncomeParam(testUrlSearchParams);
       }).toThrow();
     });
 
-    it('does not throw an exception if the object has an "income" field', () => {
+    it('does not throw an exception if the URLSearchParams has an income parameter', () => {
       // Arrange
-      const testObject = {
-        income: "25000"
-      };
+      // Instantiate a new URL object from a semi-random URL string query.
+      testUrl = new URL(
+        "https://localhost:4000/?income=25000"
+      );
+
+      // Instantiate URLSearchParams from mockUrl.
+      testUrlSearchParams = new URLSearchParams(testUrl.search);
 
       // Act & Assert
       expect(() => {
-        Validator.hasIncomeField(testObject);
+        Validator.hasIncomeParam(testUrlSearchParams);
       }).not.toThrow();
     });
   });
 
-  describe("hasSavingsField tests", () => {
-    it('throws an exception if the object does not have a "savings" field', () => {
+  describe("hasSavingsParam tests", () => {
+    it('throws an exception if the URLSearchParams does not have a savings parameter', () => {
       // Arrange
-      const testObject = {
-        name: "Freddy Mercury",
-        email: "freddy@queen.org",
-      };
+      // Instantiate a new URL object from a semi-random URL string query.
+      testUrl = new URL(
+        "https://localhost:4000/?author=JRR+Tolkien&title=The+Lord+of+the+Rings"
+      );
+
+      // Instantiate URLSearchParams from mockUrl.
+      testUrlSearchParams = new URLSearchParams(testUrl.search);
 
       // Act & Assert
       expect(() => {
-        Validator.hasSavingsField(testObject);
+        Validator.hasSavingsParam(testUrlSearchParams);
       }).toThrow();
     });
 
-    it('does not throw an exception if the object has a "savings" field', () => {
+    it('does not throw an exception if the URLSearchParams has a savings parameter', () => {
       // Arrange
-      const testObject = {
-        savings: "65000"
-      };
+      // Instantiate a new URL object from a semi-random URL string query.
+      testUrl = new URL(
+        "https://localhost:4000/?savings=65000"
+      );
+
+      // Instantiate URLSearchParams from mockUrl.
+      testUrlSearchParams = new URLSearchParams(testUrl.search);
 
       // Act & Assert
       expect(() => {
-        Validator.hasSavingsField(testObject);
+        Validator.hasSavingsParam(testUrlSearchParams);
       }).not.toThrow();
     });
   });

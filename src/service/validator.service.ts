@@ -8,22 +8,22 @@ export class Validator {
 
   static isNumber(value: unknown) {
     // Throw an exception if the value is not a number.
-    if (typeof value !== "number") {
+    if (typeof value !== "number" || isNaN(value)) {
       throw new Error('typeof value !== "number"');
     }
   }
 
-  static hasIncomeField(someObject: object) {
-    // Throw an exception if the object does not have an income field.
-    if (!Object.hasOwn(someObject, "income")) {
-      throw new Error('!Object.hasOwn(someObject, "income")');
+  static hasIncomeParam(params: URLSearchParams) {
+    // Throw an exception if there is no income parameter.
+    if (!params.has("income") || params.get("income") === null) {
+      throw new Error('!URLSearchParams.has("income")');
     }
   }
 
-  static hasSavingsField(someObject: object) {
-    // Throw an exception if the object does not have a savings field.
-    if (!Object.hasOwn(someObject, "savings")) {
-      throw new Error('!Object.hasOwn(someObject, "savings")');
-    }    
+  static hasSavingsParam(params: URLSearchParams) {
+    // Throw an exception if there is no savings parameter.
+    if (!params.has("savings") || params.get("savings") === null) {
+      throw new Error('!URLSearchParams.has("savings")');
+    }
   }
 }
