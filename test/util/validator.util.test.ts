@@ -68,8 +68,55 @@ describe("Validator Utility tests", () => {
     });
   });
 
+  describe("hasParam tests", () => {
+    it("throws an exception if the URLSearchParams does not have the expected parameter", () => {
+      // Arrange
+      const testObject = {
+        searchParams: new URLSearchParams(
+          new URL(
+            "https://localhost:4000/?name=Bob+Dylan&email=bobdylan@random.org"
+          ).search
+        ),
+        expectedParams: ["income", "savings"],
+      };
+
+      // Act & Assert
+      testObject.searchParams.forEach((param) => {
+        expect(() => {
+          Validator.hasParam(testObject.searchParams, param);
+        }).toThrow();
+      });
+    });
+
+    it("does not throw an exception if the URLSearchParams has the expected parameter", () => {
+      // Arrange
+      // Instantiate a new URL object from a semi-random URL string query.
+      const testObjects = [
+        {
+          searchParams: new URLSearchParams(
+            new URL("https://localhost:4000/?income=25000").search
+          ),
+          expectedParam: "income",
+        },
+        {
+          searchParams: new URLSearchParams(
+            new URL("https://localhost:4000/?savings=50000").search
+          ),
+          expectedParam: "savings",
+        },
+      ];
+
+      // Act & Assert
+      testObjects.forEach((condition) => {
+        expect(() => {
+          Validator.hasParam(condition.searchParams, condition.expectedParam);
+        }).not.toThrow();
+      });
+    });
+  });
+
   describe("hasIncomeParam tests", () => {
-    it('throws an exception if the URLSearchParams does not have an income parameter', () => {
+    it("throws an exception if the URLSearchParams does not have an income parameter", () => {
       // Arrange
       // Instantiate a new URL object from a semi-random URL string query.
       testUrl = new URL(
@@ -85,12 +132,10 @@ describe("Validator Utility tests", () => {
       }).toThrow();
     });
 
-    it('does not throw an exception if the URLSearchParams has an income parameter', () => {
+    it("does not throw an exception if the URLSearchParams has an income parameter", () => {
       // Arrange
       // Instantiate a new URL object from a semi-random URL string query.
-      testUrl = new URL(
-        "https://localhost:4000/?income=25000"
-      );
+      testUrl = new URL("https://localhost:4000/?income=25000");
 
       // Instantiate URLSearchParams from mockUrl.
       testUrlSearchParams = new URLSearchParams(testUrl.search);
@@ -103,7 +148,7 @@ describe("Validator Utility tests", () => {
   });
 
   describe("hasSavingsParam tests", () => {
-    it('throws an exception if the URLSearchParams does not have a savings parameter', () => {
+    it("throws an exception if the URLSearchParams does not have a savings parameter", () => {
       // Arrange
       // Instantiate a new URL object from a semi-random URL string query.
       testUrl = new URL(
@@ -119,12 +164,10 @@ describe("Validator Utility tests", () => {
       }).toThrow();
     });
 
-    it('does not throw an exception if the URLSearchParams has a savings parameter', () => {
+    it("does not throw an exception if the URLSearchParams has a savings parameter", () => {
       // Arrange
       // Instantiate a new URL object from a semi-random URL string query.
-      testUrl = new URL(
-        "https://localhost:4000/?savings=65000"
-      );
+      testUrl = new URL("https://localhost:4000/?savings=65000");
 
       // Instantiate URLSearchParams from mockUrl.
       testUrlSearchParams = new URLSearchParams(testUrl.search);

@@ -13,6 +13,12 @@ export class Validator {
     }
   }
 
+  static hasParam(params: URLSearchParams, key: string) {
+    if (!params.has(key) || params.get(key) === null) {
+      throw new Error(`!URLSearchParams.has("${key}")`);
+    }
+  }
+
   static hasIncomeParam(params: URLSearchParams) {
     // Throw an exception if there is no income parameter.
     if (!params.has("income") || params.get("income") === null) {
