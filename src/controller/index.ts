@@ -36,7 +36,7 @@ export class Controller {
 
     try {
       // Check the URL has a savings search parameter.
-      Validator.hasSavingsParam(params);
+      Validator.hasParam(params, "savings");
 
       // @ts-ignore Savings value already checked.
       const savingsString: string = params.get("savings");
@@ -70,7 +70,7 @@ export class Controller {
 
     try {
       // Check the URL has an income search parameter.
-      Validator.hasIncomeParam(params);
+      Validator.hasParam(params, "income");
 
       // @ts-ignore Income value already checked.
       const incomeString: string = params.get("income");
