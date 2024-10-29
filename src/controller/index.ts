@@ -17,10 +17,22 @@ export class Controller {
     );
   }
 
+  getParams(req: Request): URLSearchParams {
+    // Retrieve the search parameters from the request object.
+    return new URLSearchParams(new URL(req.url).search);
+  }
+
+  handleThrowable(error: unknown): Response {
+    // Return the formatted response with error message or error as string.
+    return new Response(null, {
+      status: 400,
+      statusText: error instanceof Error ? error.message : String(error),
+    });
+  }
+
   handleGetIncome(req: Request): Response {
     // Retrieve the search parameters from the request object.
-    const url = new URL(req.url);
-    const params = new URLSearchParams(url.search);
+    const params = this.getParams(req);
 
     try {
       // Check the URL has a savings search parameter.
@@ -47,27 +59,14 @@ export class Controller {
       // Return the formatted string to the user.
       return new Response(formattedIncome);
     } catch (error: unknown) {
-      // Check that an Error is thrown rather than something else.
-      let message: string;
-
-      if (error instanceof Error) {
-        message = error.message;
-      } else {
-        message = String(error);
-      }
-
-      // Return the error message to the user.
-      return new Response(null, {
-        status: 400,
-        statusText: message,
-      });
+      // Handle the error.
+      return this.handleThrowable(error);
     }
   }
 
   handleGetSavings(req: Request): Response {
     // Retrieve the search parameters from the request object.
-    const url = new URL(req.url);
-    const params = new URLSearchParams(url.search);
+    const params = this.getParams(req);
 
     try {
       // Check the URL has an income search parameter.
@@ -94,20 +93,8 @@ export class Controller {
       // Return the formatted string to the user.
       return new Response(formattedSavings);
     } catch (error: unknown) {
-      // Check that an Error is thrown rather than something else.
-      let message: string;
-
-      if (error instanceof Error) {
-        message = error.message;
-      } else {
-        message = String(error);
-      }
-
-      // Return the error message to the user.
-      return new Response(null, {
-        status: 400,
-        statusText: message,
-      });
+      // Handle the error.
+      return this.handleThrowable(error);
     }
   }
 }
