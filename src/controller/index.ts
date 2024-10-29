@@ -30,6 +30,42 @@ export class Controller {
     });
   }
 
+  handleGet(req: Request, expectedParam: "income" | "savings"): Response {
+    // Retrieve the search parameters from the request object.
+    const params = this.getParams(req);
+
+    try {
+      // Check that the URL has the expected parameter, then save the value if it does.
+      Validator.hasParam(params, expectedParam);
+      const paramValue = params.get(expectedParam);
+
+      // @ts-ignore Parameter existence checked. Check whether the parameter value is a number.
+      Validator.isNumber(Number.parseFloat(paramValue));
+
+      // @ts-ignore Parameter value is definitely a number. Check parameter value is greater than or equal to 0.
+      Validator.isPositiveNum(Number.parseFloat(paramValue));
+
+      // @ts-ignore Parameter value is definitely a positive number. Save value as a number to variable.
+      const paramNumber: number = Number.parseFloat(paramValue);
+
+      // Calculate the required income from the savings or the required savings from the income, format the output, and return the response to user.
+      return expectedParam === "income"
+        ? new Response(
+            Formatter.buildPoundStr(
+              this.calculatorService.calculateSavings(paramNumber)
+            )
+          )
+        : new Response(
+            Formatter.buildPoundStr(
+              this.calculatorService.calculateIncome(paramNumber)
+            )
+          );
+    } catch (error: unknown) {
+      // Handle any errors.
+      return this.handleThrowable(error);
+    }
+  }
+
   handleGetIncome(req: Request): Response {
     // Retrieve the search parameters from the request object.
     const params = this.getParams(req);
