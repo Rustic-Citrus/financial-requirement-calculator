@@ -72,6 +72,13 @@ export class Controller {
     try {
       // Check the URL has an income search parameter.
       Validator.hasIncomeParam(params);
+
+      // @ts-ignore Income value already checked.
+      const incomeString: string = params.get("income");
+
+      // Check whether the value for the income key is a number.
+      Validator.isNumber(Number.parseFloat(incomeString));
+
     } catch (error: unknown) {
       // Check that an Error is thrown rather than something else.
       let message: string;
