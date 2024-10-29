@@ -1,9 +1,9 @@
 import { describe, it } from "jsr:@std/testing/bdd";
 import { expect } from "jsr:@std/expect";
-import { Formatter } from "../../src/service/formatter.service.ts";
+import { Formatter } from "../../src/util/formatter.util.ts";
 import { GBP_REGEX } from "../../src/constants.ts";
 
-describe("Formatter Service tests", () => {
+describe("Formatter Utility tests", () => {
   describe("buildPoundStr tests", () => {
     it("returns a string formatted to 2 decimal places with a British pound sterling symbol prefix", () => {
       // Assemble

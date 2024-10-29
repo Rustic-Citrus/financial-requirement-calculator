@@ -1,5 +1,5 @@
-import { Calculator, Formatter } from "../service/index.ts";
-import { Validator } from "../util/index.ts";
+import { Calculator } from "../service/index.ts";
+import { Validator, Formatter } from "../util/index.ts";
 import {
   CURRENT_INCOME_THRESHOLD,
   CURRENT_MIN_YEARS,
