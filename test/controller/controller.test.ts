@@ -139,5 +139,22 @@ describe("Controller tests", () => {
       expect(response.status).toEqual(400);
       expect(response.statusText).toEqual("value < 0");
     });
+
+    it("returns a 200-response for a request when the value for the income parameter is valid", async () => {
+      // Arrange
+      // Create a mock URL.
+      mockUrl = "http://localhost:4000/?income=27500";
+
+      // Create a mock Request.
+      const mockRequest = new Request(mockUrl, {
+        method: "GET",
+      });
+
+      // Act
+      const response = testController.handleGetSavings(mockRequest);
+      // Assert
+      expect(response.status).toEqual(200);
+      expect(await response.text()).toEqual("£19,750.00");        
+    });
   })
 });

@@ -85,6 +85,14 @@ export class Controller {
       // Check income is a positive number.
       Validator.isPositiveNum(income);
 
+      // Calculate the required savings from the income.
+      const savings = this.calculatorService.calculateSavings(income);
+
+      // Format the required savings.
+      const formattedSavings = Formatter.buildPoundStr(savings);
+
+      // Return the formatted string to the user.
+      return new Response(formattedSavings);
     } catch (error: unknown) {
       // Check that an Error is thrown rather than something else.
       let message: string;
@@ -101,7 +109,5 @@ export class Controller {
         statusText: message,
       });
     }
-
-    return new Response();
   }
 }
