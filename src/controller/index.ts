@@ -49,13 +49,10 @@ export class Controller {
   }
 
   handleGet(req: Request, expectedParam: "income" | "savings"): Response {
-    // Retrieve the search parameters from the request object.
-    const params = this.getParams(req);
-
     try {
-      // Check that the URL has the expected parameter, then save the value if it does.
-      Validator.hasParam(params, expectedParam);
-      const paramValue = params.get(expectedParam);
+      // Retrieve the search parameters from the request object, check that the URL has the expected parameter, then save the value if it does.
+      Validator.hasParam(this.getParams(req), expectedParam);
+      const paramValue = this.getParams(req).get(expectedParam);
 
       // @ts-ignore Parameter existence checked. Check whether the parameter value is a number.
       Validator.isNumber(Number.parseFloat(paramValue));
