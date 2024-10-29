@@ -92,36 +92,7 @@ describe("Controller tests", () => {
   //     expect(await response.text()).toEqual("£24,400.00");
   //   });
 
-  //   it("returns a 400-response when a non-error is thrown", () => {
-  //     // Setup
-  //     // Save a reference to the original implementation of isNumber.
-  //     const originalIsNumber = Validator.isNumber;
-
-  //     // Arrange
-  //     // Create a stub of a Validator method which throws something other than an Error.
-  //     stub(Validator, "isNumber", () => {
-  //       throw "Woops!";
-  //     });
-
-  //     // Create a mock URL.
-  //     mockUrl = "http://localhost:4000/?savings=27500";
-
-  //     // Create a mock Request.
-  //     const mockRequest = new Request(mockUrl, {
-  //       method: "GET",
-  //     });
-
-  //     // Act
-  //     // Try to process a perfectly valid request.
-  //     const response = testController.handleGetIncome(mockRequest);
-
-  //     // Assert
-  //     expect(response.status).toEqual(400);
-  //     expect(response.statusText).toEqual("Woops!");
-
-  //     // Teardown
-  //     Validator.isNumber = originalIsNumber;
-  //   });
+  //
   // });
 
   // describe("handleGetSavings tests", () => {
@@ -296,6 +267,37 @@ describe("Controller tests", () => {
         expect(response.status).toEqual(400);
         expect(response.statusText).toEqual("value < 0");
       });
+    });
+
+    it("returns a 400-response if a non-error is thrown", () => {
+      // Setup
+      // Save a reference to the original implementation of isNumber.
+      const originalIsNumber = Validator.isNumber;
+
+      // Arrange
+      // Create a stub of a Validator method which throws something other than an Error.
+      stub(Validator, "isNumber", () => {
+        throw "Woops!";
+      });
+
+      // Create a mock URL.
+      mockUrl = "http://localhost:4000/?savings=27500";
+
+      // Create a mock Request.
+      const mockRequest = new Request(mockUrl, {
+        method: "GET",
+      });
+
+      // Act
+      // Try to process a perfectly valid request.
+      const response = testController.handleGet(mockRequest, "savings");
+
+      // Assert
+      expect(response.status).toEqual(400);
+      expect(response.statusText).toEqual("Woops!");
+
+      // Teardown
+      Validator.isNumber = originalIsNumber;
     });
 
     it("returns a 200-response for a request when the values for the expected parameters are valid", () => {
