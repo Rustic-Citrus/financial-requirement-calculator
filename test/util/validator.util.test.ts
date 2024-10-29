@@ -1,8 +1,8 @@
 import { describe, it } from "jsr:@std/testing/bdd";
 import { expect } from "jsr:@std/expect";
-import { Validator } from "../../src/service/validator.service.ts";
+import { Validator } from "../../src/util/validator.util.ts";
 
-describe("Validator Service tests", () => {
+describe("Validator Utility tests", () => {
   let testUrl: URL;
   let testUrlSearchParams: URLSearchParams;
 
