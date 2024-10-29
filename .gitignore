@@ -4,4 +4,6 @@ src/server
 test/router
 test/server
 
+coverage
+
 deno.lock
