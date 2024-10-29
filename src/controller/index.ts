@@ -22,6 +22,24 @@ export class Controller {
     return new URLSearchParams(new URL(req.url).search);
   }
 
+  getResponse(
+    paramNumber: number,
+    expectedParam: "income" | "savings"
+  ): Response {
+    // Calculate the required income from the savings or the required savings from the income, format the output, and return the response to user.
+    return expectedParam === "income"
+      ? new Response(
+          Formatter.buildPoundStr(
+            this.calculatorService.calculateSavings(paramNumber)
+          )
+        )
+      : new Response(
+          Formatter.buildPoundStr(
+            this.calculatorService.calculateIncome(paramNumber)
+          )
+        );
+  }
+
   handleThrowable(error: unknown): Response {
     // Return the formatted response with error message or error as string.
     return new Response(null, {
@@ -48,18 +66,8 @@ export class Controller {
       // @ts-ignore Parameter value is definitely a positive number. Save value as a number to variable.
       const paramNumber: number = Number.parseFloat(paramValue);
 
-      // Calculate the required income from the savings or the required savings from the income, format the output, and return the response to user.
-      return expectedParam === "income"
-        ? new Response(
-            Formatter.buildPoundStr(
-              this.calculatorService.calculateSavings(paramNumber)
-            )
-          )
-        : new Response(
-            Formatter.buildPoundStr(
-              this.calculatorService.calculateIncome(paramNumber)
-            )
-          );
+      // Build the appropriate response.
+      return this.getResponse(paramNumber, expectedParam);
     } catch (error: unknown) {
       // Handle any errors.
       return this.handleThrowable(error);
