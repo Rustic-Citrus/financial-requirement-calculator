@@ -63,4 +63,32 @@ export class Controller {
       });
     }
   }
+
+  handleGetSavings(req: Request): Response {
+    // Retrieve the search parameters from the request object.
+    const url = new URL(req.url);
+    const params = new URLSearchParams(url.search);
+
+    try {
+      // Check the URL has an income search parameter.
+      Validator.hasIncomeParam(params);
+    } catch (error: unknown) {
+      // Check that an Error is thrown rather than something else.
+      let message: string;
+
+      if (error instanceof Error) {
+        message = error.message;
+      } else {
+        message = String(error);
+      }
+
+      // Return the error message to the user.
+      return new Response(null, {
+        status: 400,
+        statusText: message,
+      });
+    }
+
+    return new Response();
+  }
 }

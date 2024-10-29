@@ -1,8 +1,8 @@
 import { beforeEach, describe, it } from "@std/testing/bdd";
-import { Controller } from "../../src/controller/index.ts";
 import { expect } from "jsr:@std/expect/expect";
+import { Controller } from "../../src/controller/index.ts";
 
-describe("Controller class tests", () => {
+describe("Controller tests", () => {
   let testController: Controller;
   let mockUrl: string;
 
@@ -84,4 +84,24 @@ describe("Controller class tests", () => {
       expect(await response.text()).toEqual("£24,400.00");        
     });
   });
+
+  describe("handleGetSavings tests", () => {
+    it("returns a 400-response for a request with no income search parameters", () => {
+      // Arrange
+      // Create a mock URL.
+      mockUrl = "http://localhost:4000/";
+
+      // Create a mock Request.
+      const mockRequest = new Request(mockUrl, {
+        method: "GET",
+      });
+
+      // Act
+      const response = testController.handleGetSavings(mockRequest);
+
+      // Assert
+      expect(response.status).toEqual(400);
+      expect(response.statusText).toEqual('!URLSearchParams.has("income")');
+    });
+  })
 });
