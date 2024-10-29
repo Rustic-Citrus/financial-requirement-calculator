@@ -3,9 +3,6 @@ import { expect } from "jsr:@std/expect";
 import { Validator } from "../../src/util/validator.util.ts";
 
 describe("Validator Utility tests", () => {
-  let testUrl: URL;
-  let testUrlSearchParams: URLSearchParams;
-
   describe("isPositiveNum tests", () => {
     it("throws an error if the received value is a number less than 0", () => {
       // Assemble
@@ -81,7 +78,7 @@ describe("Validator Utility tests", () => {
       };
 
       // Act & Assert
-      testObject.searchParams.forEach((param) => {
+      testObject.expectedParams.forEach((param) => {
         expect(() => {
           Validator.hasParam(testObject.searchParams, param);
         }).toThrow();
@@ -112,70 +109,6 @@ describe("Validator Utility tests", () => {
           Validator.hasParam(condition.searchParams, condition.expectedParam);
         }).not.toThrow();
       });
-    });
-  });
-
-  describe("hasIncomeParam tests", () => {
-    it("throws an exception if the URLSearchParams does not have an income parameter", () => {
-      // Arrange
-      // Instantiate a new URL object from a semi-random URL string query.
-      testUrl = new URL(
-        "https://localhost:4000/?name=Bob+Dylan&email=bobdylan@random.org"
-      );
-
-      // Instantiate URLSearchParams from mockUrl.
-      testUrlSearchParams = new URLSearchParams(testUrl.search);
-
-      // Act & Assert
-      expect(() => {
-        Validator.hasIncomeParam(testUrlSearchParams);
-      }).toThrow();
-    });
-
-    it("does not throw an exception if the URLSearchParams has an income parameter", () => {
-      // Arrange
-      // Instantiate a new URL object from a semi-random URL string query.
-      testUrl = new URL("https://localhost:4000/?income=25000");
-
-      // Instantiate URLSearchParams from mockUrl.
-      testUrlSearchParams = new URLSearchParams(testUrl.search);
-
-      // Act & Assert
-      expect(() => {
-        Validator.hasIncomeParam(testUrlSearchParams);
-      }).not.toThrow();
-    });
-  });
-
-  describe("hasSavingsParam tests", () => {
-    it("throws an exception if the URLSearchParams does not have a savings parameter", () => {
-      // Arrange
-      // Instantiate a new URL object from a semi-random URL string query.
-      testUrl = new URL(
-        "https://localhost:4000/?author=JRR+Tolkien&title=The+Lord+of+the+Rings"
-      );
-
-      // Instantiate URLSearchParams from mockUrl.
-      testUrlSearchParams = new URLSearchParams(testUrl.search);
-
-      // Act & Assert
-      expect(() => {
-        Validator.hasSavingsParam(testUrlSearchParams);
-      }).toThrow();
-    });
-
-    it("does not throw an exception if the URLSearchParams has a savings parameter", () => {
-      // Arrange
-      // Instantiate a new URL object from a semi-random URL string query.
-      testUrl = new URL("https://localhost:4000/?savings=65000");
-
-      // Instantiate URLSearchParams from mockUrl.
-      testUrlSearchParams = new URLSearchParams(testUrl.search);
-
-      // Act & Assert
-      expect(() => {
-        Validator.hasSavingsParam(testUrlSearchParams);
-      }).not.toThrow();
     });
   });
 });

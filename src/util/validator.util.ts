@@ -18,18 +18,4 @@ export class Validator {
       throw new Error(`!URLSearchParams.has("${key}")`);
     }
   }
-
-  static hasIncomeParam(params: URLSearchParams) {
-    // Throw an exception if there is no income parameter.
-    if (!params.has("income") || params.get("income") === null) {
-      throw new Error('!URLSearchParams.has("income")');
-    }
-  }
-
-  static hasSavingsParam(params: URLSearchParams) {
-    // Throw an exception if there is no savings parameter.
-    if (!params.has("savings") || params.get("savings") === null) {
-      throw new Error('!URLSearchParams.has("savings")');
-    }
-  }
 }
