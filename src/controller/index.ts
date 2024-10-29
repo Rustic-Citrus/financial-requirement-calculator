@@ -79,6 +79,12 @@ export class Controller {
       // Check whether the value for the income key is a number.
       Validator.isNumber(Number.parseFloat(incomeString));
 
+      // @ts-ignore Income value already checked.
+      const income: number = Number.parseFloat(incomeString);
+
+      // Check income is a positive number.
+      Validator.isPositiveNum(income);
+
     } catch (error: unknown) {
       // Check that an Error is thrown rather than something else.
       let message: string;

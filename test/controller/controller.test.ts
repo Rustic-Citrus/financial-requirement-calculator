@@ -121,5 +121,23 @@ describe("Controller tests", () => {
       expect(response.status).toEqual(400);
       expect(response.statusText).toEqual('typeof value !== "number"');
     });
+
+    it("returns a 400-response for a request with a value for the income search parameter that is a negative number", () => {
+      // Arrange
+      // Create a mock URL.
+      mockUrl = "http://localhost:4000/?income=-45000";
+
+      // Create a mock Request.
+      const mockRequest = new Request(mockUrl, {
+        method: "GET",
+      });
+
+      // Act
+      const response = testController.handleGetSavings(mockRequest);
+
+      // Assert
+      expect(response.status).toEqual(400);
+      expect(response.statusText).toEqual("value < 0");
+    });
   })
 });
