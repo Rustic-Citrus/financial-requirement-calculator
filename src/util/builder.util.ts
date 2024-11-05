@@ -29,4 +29,9 @@ export class Builder {
       statusText: error instanceof Error ? error.message : String(error),
     });
   }
+
+  static buildParamsFromRequest(req: Request): URLSearchParams {
+    // Retrieve the search parameters from the request object.
+    return new URLSearchParams(new URL(req.url).search);
+  }
 }

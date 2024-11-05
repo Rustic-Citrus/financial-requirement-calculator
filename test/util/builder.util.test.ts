@@ -95,4 +95,25 @@ describe("Builder Utility tests", () => {
       expect(actual.statusText).toEqual(String(testObject));
     });
   });
+
+  describe("buildParamsFromRequest tests", () => {
+    it("returns an instance of a URLSearchParams object", () => {
+      expect(
+        Builder.buildParamsFromRequest(
+          new Request(new URL("https://this.is.a.test/"))
+        )
+      ).toBeInstanceOf(URLSearchParams);
+    });
+
+    it("returns an instance of a URLSearchParams object with the original parameters of the request", () => {
+      const url = "https://this.is.a.test/?example=Hello+World";
+      
+      const actual = Builder.buildParamsFromRequest(
+        new Request(new URL(url))
+      );
+
+      expect(actual.has("example")).toBeTruthy();
+      expect(actual.get("example")).toEqual("Hello World");
+    })
+  });
 });
