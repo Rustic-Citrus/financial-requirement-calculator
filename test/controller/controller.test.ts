@@ -180,10 +180,6 @@ describe("Controller tests", () => {
       });
 
       // Assert
-      responses.forEach((response) => {
-        console.log(response);
-      });
-
       responses.forEach(async (response, index) => {
         expect(await response.text()).toEqual(
           testConditions[index].expectedValue
