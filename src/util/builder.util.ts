@@ -22,4 +22,11 @@ export class Builder {
     }
   }
 
+  static buildResponseFromThrowable(error: unknown): Response {
+    // Return the formatted response with error message or error as string.
+    return new Response(null, {
+      status: 400,
+      statusText: error instanceof Error ? error.message : String(error),
+    });
+  }
 }

@@ -44,10 +44,55 @@ describe("Builder Utility tests", () => {
       const validParams: ("income" | "savings")[] = ["income", "savings"];
 
       validParams.forEach((param) => {
-        expect(
-          Builder.buildResponseFromCalculation(5000, param, mockCalculator)
-        ).toBeInstanceOf(Response);
+        const actual = Builder.buildResponseFromCalculation(
+          5000,
+          param,
+          mockCalculator
+        );
+
+        expect(actual).toBeInstanceOf(Response);
+        expect(actual.status).toEqual(200);
       });
+    });
+  });
+
+  describe("buildResponseFromThrowable tests", () => {
+    it("returns a 400-Response object if an Error object is passed as an argument", () => {
+      const actual = Builder.buildResponseFromThrowable(
+        new Error("Test Error")
+      );
+
+      expect(actual).toBeInstanceOf(Response);
+      expect(actual.status).toEqual(400);
+      expect(actual.statusText).toEqual("Test Error");
+    });
+
+    it("returns a 400-Response object if a string is passed as an argument", () => {
+      const actual = Builder.buildResponseFromThrowable("Hello, World!");
+
+      expect(actual).toBeInstanceOf(Response);
+      expect(actual.status).toEqual(400);
+      expect(actual.statusText).toEqual("Hello, World!");
+    });
+
+    it("returns a 400-Response object if a number is passed as an argument", () => {
+      const actual = Builder.buildResponseFromThrowable(42);
+
+      expect(actual).toBeInstanceOf(Response);
+      expect(actual.status).toEqual(400);
+      expect(actual.statusText).toEqual("42");
+    });
+
+    it("returns a 400-Response object if a non-Error object is passed as an argument", () => {
+      const testObject = {
+        name: "Albert Einstein",
+        occupation: "Scientist",
+      };
+      const actual = Builder.buildResponseFromThrowable(testObject);
+
+      expect(actual).toBeInstanceOf(Response);
+      expect(actual.status).toEqual(400);
+      expect(actual.statusText).toEqual(String(testObject));
     });
   });
 });
